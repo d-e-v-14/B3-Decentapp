@@ -1,0 +1,9 @@
+@import "tailwindcss/preflight";
+@tailwind utilities;
+
+html,
+body {
+  background-color: #0a0b0f;
+  color: #ededed;
+  font-feature-settings: "ss01", "ss02";
+}
