@@ -27,4 +27,7 @@ export const config = {
         maxDailySolPerUser: 0.01,         // Max SOL a user can consume per day (~100 txs)
         minFeePayerBalance: 0.1,          // Minimum balance before warning/rejecting
     },
+
+    // Dead Man's Switch cron secret
+    dmsCronSecret: process.env.DMS_CRON_SECRET || 'dev-cron-secret',
 };

@@ -163,7 +163,7 @@ router.post('/create', async (req: Request, res: Response) => {
  */
 router.post('/:groupId/build-invite-transaction', async (req: Request, res: Response) => {
     try {
-        const { groupId } = req.params;
+        const groupId = req.params.groupId as string;
         const { invitedUserPubkey, inviterPubkey, encryptedGroupKey } = req.body;
 
         if (!invitedUserPubkey || !inviterPubkey || !encryptedGroupKey) {
@@ -203,7 +203,7 @@ router.post('/:groupId/build-invite-transaction', async (req: Request, res: Resp
  */
 router.post('/:groupId/build-leave-transaction', async (req: Request, res: Response) => {
     try {
-        const { groupId } = req.params;
+        const groupId = req.params.groupId as string;
         const { memberPubkey } = req.body;
 
         if (!memberPubkey) {
@@ -341,7 +341,7 @@ router.post('/leave', async (req: Request, res: Response) => {
  */
 router.get('/:groupId', async (req: Request, res: Response) => {
     try {
-        const { groupId } = req.params;
+        const groupId = req.params.groupId as string;
         const groupIdBuffer = Buffer.from(groupId, 'hex');
 
         // Try Solana first
@@ -440,7 +440,7 @@ router.get('/public/search', async (req: Request, res: Response) => {
  */
 router.get('/code/:code', async (req: Request, res: Response) => {
     try {
-        const { code } = req.params;
+        const code = req.params.code as string;
 
         const groupIdHex = await lookupGroupByCode(code);
         if (!groupIdHex) {
@@ -475,7 +475,7 @@ router.get('/code/:code', async (req: Request, res: Response) => {
  */
 router.post('/join/:code', async (req: Request, res: Response) => {
     try {
-        const { code } = req.params;
+        const code = req.params.code as string;
         const { memberPubkey, encryptedGroupKey } = req.body;
 
         if (!memberPubkey || !encryptedGroupKey) {
@@ -521,7 +521,7 @@ router.post('/join/:code', async (req: Request, res: Response) => {
  */
 router.post('/:groupId/set-code', async (req: Request, res: Response) => {
     try {
-        const { groupId } = req.params;
+        const groupId = req.params.groupId as string;
         const { publicCode, ownerPubkey } = req.body;
 
         if (!publicCode || !ownerPubkey) {
@@ -560,7 +560,7 @@ router.post('/:groupId/set-code', async (req: Request, res: Response) => {
  */
 router.get('/:groupId/members', async (req: Request, res: Response) => {
     try {
-        const { groupId } = req.params;
+        const groupId = req.params.groupId as string;
         const groupIdBuffer = Buffer.from(groupId, 'hex');
 
         // Fetch all member public keys

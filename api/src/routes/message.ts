@@ -323,7 +323,7 @@ router.post('/group/:groupId/send', rateLimitMiddleware, async (req: Request, re
 
         // Get group members from Redis
         const redis = await import('../services/redis.js');
-        const members = await redis.getGroupMembers(groupId);
+        const members = await redis.getGroupMembers(groupId as string);
 
         if (!members || members.length === 0) {
             return res.status(404).json({ error: 'Group not found' });

@@ -107,7 +107,7 @@ router.get('/check', async (req: Request, res: Response) => {
  */
 router.get('/list/:pubkey', async (req: Request, res: Response) => {
     try {
-        const { pubkey } = req.params;
+        const pubkey = req.params.pubkey as string;
 
         if (!pubkey) {
             return res.status(400).json({ error: 'Missing pubkey parameter' });

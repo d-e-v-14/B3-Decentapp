@@ -30,7 +30,7 @@ const USERNAME_REGEX = /^[a-zA-Z0-9_]{3,20}$/;
  */
 router.get('/:name/check', async (req: Request, res: Response) => {
     try {
-        const { name } = req.params;
+        const name = req.params.name as string;
 
         if (!USERNAME_REGEX.test(name)) {
             return res.status(400).json({
@@ -61,7 +61,7 @@ router.get('/:name/check', async (req: Request, res: Response) => {
  */
 router.get('/owner/:pubkey', async (req: Request, res: Response) => {
     try {
-        const { pubkey } = req.params;
+        const pubkey = req.params.pubkey as string;
         try {
             new PublicKey(pubkey);
         } catch {
@@ -103,7 +103,7 @@ router.get('/owner/:pubkey', async (req: Request, res: Response) => {
  */
 router.get('/:name', async (req: Request, res: Response) => {
     try {
-        const { name } = req.params;
+        const name = req.params.name as string;
         const username = name.toLowerCase();
 
         const userAccount = await getUserAccount(username);
@@ -440,7 +440,7 @@ router.post('/build-release-transaction', spendingLimitMiddleware, async (req: R
  */
 router.post('/:name/release', spendingLimitMiddleware, async (req: Request, res: Response) => {
     try {
-        const { name } = req.params;
+        const name = req.params.name as string;
         const { signedTransaction } = req.body;
         const username = name.toLowerCase();
 

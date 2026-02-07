@@ -17,7 +17,7 @@ async function getIrysClient(): Promise<any> {
     const { Uploader } = await import('@irys/upload');
 
     // Create Irys uploader with Solana wallet and devnet RPC
-    const irysUploader = await Uploader(Solana)
+    const irysUploader = await (Uploader as any)(Solana)
         .withWallet(config.feePayerPrivateKey)
         .withRpc(config.solanaRpcUrl)
         .devnet(); // Use devnet for testing; remove .devnet() for mainnet

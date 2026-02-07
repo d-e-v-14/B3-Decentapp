@@ -83,6 +83,10 @@ import groupsRouter from './routes/groups.js';
 app.use('/api/groups', groupsRouter);
 import signalingRouter from './routes/signaling.js';
 app.use('/api/signaling', signalingRouter);
+import dmsRouter from './routes/dms.js';
+app.use('/api/dms', dmsRouter);
+import recoveryRouter from './routes/recovery.js';
+app.use('/api/recovery', recoveryRouter);
 
 // Start server
 async function start() {

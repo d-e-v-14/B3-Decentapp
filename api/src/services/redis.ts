@@ -218,4 +218,69 @@ export async function getGroupMembers(groupId: string): Promise<string[]> {
     return members || [];
 }
 
+// ─── Generic helpers used by auth, DMS, recovery, etc. ───
+
+/**
+ * Get a string value
+ */
+export async function getString(key: string): Promise<string | null> {
+    return await redis.get<string>(key);
+}
+
+/**
+ * Set a string value with TTL (seconds)
+ */
+export async function setStringWithExpiry(key: string, value: string, ttlSeconds: number): Promise<void> {
+    await redis.set(key, value, { ex: ttlSeconds });
+}
+
+/**
+ * Set a string value without TTL
+ */
+export async function setString(key: string, value: string): Promise<void> {
+    await redis.set(key, value);
+}
+
+/**
+ * Delete a key
+ */
+export async function deleteKey(key: string): Promise<void> {
+    await redis.del(key);
+}
+
+/**
+ * Set hash fields
+ */
+export async function setHash(key: string, fields: Record<string, any>): Promise<void> {
+    await redis.hset(key, fields);
+}
+
+/**
+ * Get entire hash
+ */
+export async function getHash(key: string): Promise<Record<string, string> | null> {
+    return await redis.hgetall(key) as Record<string, string> | null;
+}
+
+/**
+ * Get a single hash field
+ */
+export async function getHashField(key: string, field: string): Promise<string | null> {
+    return await redis.hget(key, field) as string | null;
+}
+
+/**
+ * Set expiry on a key
+ */
+export async function setExpiry(key: string, ttlSeconds: number): Promise<void> {
+    await redis.expire(key, ttlSeconds);
+}
+
+/**
+ * Find keys matching a pattern
+ */
+export async function findKeys(pattern: string): Promise<string[]> {
+    return await redis.keys(pattern) as string[];
+}
+
 export { redis };
